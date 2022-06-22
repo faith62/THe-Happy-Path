@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39ed93b6-ca32-42b2-bc38-9a05aebe90d7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/happy/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/happy/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/happy/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/happy/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/happy/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/happy/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
