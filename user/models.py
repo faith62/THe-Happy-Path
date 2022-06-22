@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import EmailField
+from django.utils import timezone
 from helpers.models import TrackingModel
 from django.contrib.auth.models import PermissionsMixin,BaseUserManager,AbstractBaseUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
@@ -65,4 +65,6 @@ class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
     USERNAME_FIELD ='email'
     REQUIRED_FIELDS =['username']
 
-    def token(self)
+    @property
+    def token(self):
+        return ''
