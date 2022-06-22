@@ -12,9 +12,8 @@ class Service(models.Model):
     )
     
     category = models.CharField(max_length=50, null=True, choices=CATEGORY)
-    description = models.CharField(max_length=150, null=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE,)
-
+    description = models.CharField(max_length=800, null=True)
+    
     # contact = models.ForeignKey(Contact,on_delete=models.SET_NULL,blank=True,null=True)
 
     def __str__(self):
