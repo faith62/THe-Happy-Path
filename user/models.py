@@ -64,3 +64,5 @@ class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
     EmailField = 'email'
     USERNAME_FIELD ='email'
     REQUIRED_FIELDS =['username']
+
+    def token(self)
