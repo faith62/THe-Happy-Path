@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from .models import  Service
 from .serializers import ServiceSerializers
 
-#........
-class MerchList(APIView):
+#service 
+class ServiceList(APIView):
     def get(self, request, format=None):
         all_service = Service.objects.all()
         serializers = ServiceSerializers(all_service, many=True)
