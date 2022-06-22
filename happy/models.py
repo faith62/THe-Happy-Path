@@ -11,8 +11,4 @@ class Contact(models.Model):
     def __str__(self):
         return self.first_name
    
-    # def save_contact(self):
-    #     self.save() 
-
-    # def delete_contact(self):
-    #     self.delete()  
+   
