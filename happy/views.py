@@ -32,21 +32,21 @@ def contact_detail(request, pk):
     Retrieve, update or delete a code contact.
     """
     try:
-       Contact= Contact.objects.get(id=pk)
-    except Contact.DoesNotExist:
+       contact= Contact.objects.get(id=pk)
+    except contact.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer =ContactSerializer(Contact)
+        serializer =ContactSerializer(contact)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = ContactSerializer(Contact, data=request.data)
+        serializer = ContactSerializer(contact, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        Contact.delete()
+        contact.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
