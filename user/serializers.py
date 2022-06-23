@@ -1,7 +1,7 @@
 from dataclasses import field
 from pyexpat import model
 from rest_framework import serializers
-from .models import User,ClientProfile
+from .models import User,ClientProfile,Counselor
 
 class ClientProfileSerializer(serializers.ModelSerializer):
 
@@ -43,3 +43,7 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ('username','password')
 
 
+class CounselorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Counselor
+        fields = ('id', 'first_name', 'last_name', 'email', 'phone_number')
