@@ -18,7 +18,15 @@ class Service(models.Model):
 
     def __str__(self):
         return self.category
-   
+    # def get_contact_details(self):
+    #     return{
+    #         "":self.contact.,
+    #         "":self.contact.,
+    #         "":self.contact.,
+    #         "":self.contact.,
+    #         "":self.contact.,
+    #     }
+    
     def save_service(self):
         self.save() 
 
