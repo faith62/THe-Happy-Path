@@ -1,5 +1,13 @@
+from dataclasses import field
+from pyexpat import model
 from rest_framework import serializers
 from .models import User,ClientProfile
+
+class ClientProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ClientProfile
+        fields = ('user', 'prof_pic', 'about_me', 'full_name')
 
 class RegistrationSerializer(serializers.ModelSerializer):
     '''Serializers registration requests and creates a new user.'''
@@ -25,10 +33,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         new_user.save()
         return new_user
 
-class ClientProfileSerializer(serializers.ModelSerializer):
+
+class LoginSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(style={'input_type':'text'})
+    password = serializers.CharField(style={'input_type':'password'})
 
     class Meta:
-        model = ClientProfile
-        fields = ('user', 'prof_pic', 'about_me', 'full_name')
+        model = User
+        fields = ('username','password')
 
 
