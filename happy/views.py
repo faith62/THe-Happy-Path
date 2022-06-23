@@ -32,7 +32,7 @@ def contact_detail(request, pk):
     Retrieve, update or delete a code contact.
     """
     try:
-       Contact= Contact.objects.get(pk=pk)
+       Contact= Contact.objects.get(id=pk)
     except Contact.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
