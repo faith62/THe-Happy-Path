@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from rest_framework import generics
+from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.permissions import AllowAny 
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import check_password
@@ -16,13 +16,21 @@ from .serializers import *
 
 class ClientProfileList(generics.ListCreateAPIView):
     '''Display all client profiles as json data'''
+    permission_classes = (AllowAny,)
     queryset = ClientProfile.objects.all()
     serializer_class = ClientProfileSerializer
 
 class ClientProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     '''Display client profile as json data by id provided'''
+    permission_classes = (AllowAny,)
     queryset = ClientProfile.objects.all()
     serializer_class = ClientProfileSerializer
+
+class ProfileRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    '''Update client profile'''
+    queryset = ClientProfile.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = UpdateClientProfileSerializer
 
 '''
 Registration test for API endpoints
@@ -60,13 +68,13 @@ def user_login(request):
     if request.method == 'POST':
         data = {}
         reqData = LoginSerializer(data=request.data.dict())
-        print(reqData)
+       
         if reqData.is_valid():
             name =reqData.__getitem__('username')
             pass_word =reqData.__getitem__('password')
             username = name.value
             password = pass_word.value
-            print(password)
+            
             try:
                 user = User.objects.get(username=username)
                 print(user)
@@ -89,3 +97,7 @@ def user_login(request):
                     raise ValidationError({"message": "Account not active"})
             else:
                 raise ValidationError({"message": "Account doesnt exist"})
+
+
+
+  

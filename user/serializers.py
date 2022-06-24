@@ -42,4 +42,16 @@ class LoginSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username','password')
 
+class UpdateClientProfileSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = ClientProfile
+        fields = ('about_me', 'full_name','prof_pic')
+
+    def update(self, instance, validated_data):
+        instance.about_me = validated_data['about_me']
+        instance.full_name = validated_data['full_name']
+
+        instance.save()
+
+        return instance
