@@ -16,6 +16,7 @@ class ServiceList(APIView):
 
     def post(self, request, format=None):
         serializers = ServiceSerializers(data=request.data)
+        
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
