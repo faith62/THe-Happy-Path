@@ -1,15 +1,12 @@
-import json
-import django
-from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from django.db import IntegrityError
 from django.core.exceptions import ValidationError
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login, logout
+from rest_framework.authtoken.models import Token
 
 from rest_framework.decorators import permission_classes, api_view
 from .models import ClientProfile
@@ -21,13 +18,21 @@ from rest_framework.views import APIView
 
 class ClientProfileList(generics.ListCreateAPIView):
     '''Display all client profiles as json data'''
+    permission_classes = (AllowAny,)
     queryset = ClientProfile.objects.all()
     serializer_class = ClientProfileSerializer
 
 class ClientProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     '''Display client profile as json data by id provided'''
+    permission_classes = (AllowAny,)
     queryset = ClientProfile.objects.all()
     serializer_class = ClientProfileSerializer
+
+class ProfileRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    '''Update client profile'''
+    queryset = ClientProfile.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = UpdateClientProfileSerializer
 
 '''
 Registration test for API endpoints
@@ -45,10 +50,12 @@ def user_registration(request):
             # Set user a client
             account.is_client = True
             account.save()
+            token = Token.objects.get_or_create(user=account)[0].key
 
             data['message'] = "user registered successfully"
             data['email'] = account.email
             data['username'] = account.username
+            data["token"] = token 
         else:
             data = serializer.errors
     return Response(data)
@@ -63,19 +70,19 @@ def user_login(request):
     if request.method == 'POST':
         data = {}
         reqData = LoginSerializer(data=request.data.dict())
-        print(reqData)
+       
         if reqData.is_valid():
             name =reqData.__getitem__('username')
             pass_word =reqData.__getitem__('password')
             username = name.value
             password = pass_word.value
-            print(password)
+            
             try:
                 user = User.objects.get(username=username)
                 print(user)
             except BaseException as e:
                 raise ValidationError({"message": "Bad Request"})
-
+            token = Token.objects.get_or_create(user=user)[0].key
             if not check_password(password, user.password):
                 raise ValidationError({"message": "Incorrect Login credentials"})
 
@@ -85,7 +92,7 @@ def user_login(request):
                     data["message"] = "user logged in"
                     data["email_address"] = user.email
 
-                    response = {"data": data}
+                    response = {"data": data, "token":token}
 
                     return Response(response)
                 else:
@@ -93,6 +100,7 @@ def user_login(request):
             else:
                 raise ValidationError({"message": "Account doesnt exist"})
 
+<<<<<<< HEAD
 #Counselor
 class CounselorList(APIView):
     def get(self, request, format=None):
@@ -132,3 +140,8 @@ def showcounselor(request, pk):
         counselor.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+=======
+
+
+  
+>>>>>>> origin/ft-client-profile-token
