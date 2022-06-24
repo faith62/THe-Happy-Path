@@ -43,13 +43,6 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ('username','password')
 
 class UpdateClientProfileSerializer(serializers.ModelSerializer):
-
-<<<<<<< HEAD
-class CounselorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Counselor
-        fields = ('id', 'first_name', 'last_name', 'email', 'phone_number')
-=======
     class Meta:
         model = ClientProfile
         fields = ('about_me', 'full_name','prof_pic')
@@ -61,4 +54,10 @@ class CounselorSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
->>>>>>> origin/ft-client-profile-token
+
+class CounselorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Counselor
+        fields = ('id', 'first_name', 'last_name', 'email', 'phone_number')
+
+   

@@ -100,7 +100,7 @@ def user_login(request):
             else:
                 raise ValidationError({"message": "Account doesnt exist"})
 
-<<<<<<< HEAD
+
 #Counselor
 class CounselorList(APIView):
     def get(self, request, format=None):
@@ -140,8 +140,3 @@ def showcounselor(request, pk):
         counselor.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-=======
-
-
-  
->>>>>>> origin/ft-client-profile-token
