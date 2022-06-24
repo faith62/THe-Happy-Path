@@ -1,9 +1,10 @@
 from django.db import models
-from django.utils import timezone
 from helpers.models import TrackingModel
 from django.contrib.auth.models import PermissionsMixin,BaseUserManager,AbstractBaseUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
-# Create your models here.
+import jwt
+from django.conf import settings
+from datetime import datetime, timedelta
 
 
 class UserManager(BaseUserManager):
@@ -67,4 +68,8 @@ class User(AbstractBaseUser,PermissionsMixin,TrackingModel):
 
     @property
     def token(self):
-        return ''
+        token=jwt.encode(
+            {'username': self.username,'email': self.email, 'exp':datetime.utcnow() + timedelta(hours=24)},
+        settings.SECRET_KEY,alogarithm='H5256')
+
+        return token
