@@ -104,6 +104,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK ={
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'user.jwt.JWTAuthentication',
+    ]
+
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
