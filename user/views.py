@@ -72,7 +72,7 @@ def user_login(request):
                 print(user)
             except BaseException as e:
                 raise ValidationError({"message": "Bad Request"})
-
+            token = Token.objects.get_or_create(user=user)[0].key
             if not check_password(password, user.password):
                 raise ValidationError({"message": "Incorrect Login credentials"})
 
@@ -82,7 +82,7 @@ def user_login(request):
                     data["message"] = "user logged in"
                     data["email_address"] = user.email
 
-                    response = {"data": data}
+                    response = {"data": data, "token":token}
 
                     return Response(response)
                 else:
