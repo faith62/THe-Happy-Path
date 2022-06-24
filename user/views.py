@@ -1,15 +1,12 @@
-import json
-import django
 from django.shortcuts import render
 from rest_framework import generics
-from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny 
 from rest_framework.response import Response
-from django.db import IntegrityError
 from django.core.exceptions import ValidationError
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login, logout
+from rest_framework.authtoken.models import Token
 
 from rest_framework.decorators import permission_classes, api_view
 from .models import ClientProfile
@@ -43,10 +40,12 @@ def user_registration(request):
             # Set user a client
             account.is_client = True
             account.save()
+            token = Token.objects.get_or_create(user=account)[0].key
 
             data['message'] = "user registered successfully"
             data['email'] = account.email
             data['username'] = account.username
+            data["token"] = token 
         else:
             data = serializer.errors
     return Response(data)
